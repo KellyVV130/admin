@@ -27,13 +27,18 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     } else {
       const hasGetUserInfo = store.getters.name
+      const role = store.getters.name
       if (hasGetUserInfo) {
         next()
       } else {
         try {
           // get user info
           await store.dispatch('user/getInfo')
-
+          // 挂载权限路由，这里不需要，因为管理员站点和普通站点分开了。
+          // store.dispatch('GenerateRoutes', { role }).then(() => { // 生成可访问的路由表
+          //   router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+          //   next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+          // })
           next()
         } catch (error) {
           // remove token and go to login page to re-login

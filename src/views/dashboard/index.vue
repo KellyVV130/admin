@@ -1,11 +1,12 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <component :is="'adminDashboard'"></component>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import adminDashboard from './admin'
 
 export default {
   name: 'Dashboard',
@@ -13,6 +14,9 @@ export default {
     ...mapGetters([
       'name'
     ])
+  },
+  components: {
+    adminDashboard
   }
 }
 </script>

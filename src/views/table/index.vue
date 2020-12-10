@@ -39,6 +39,18 @@
           <span>{{ scope.row.display_time }}</span>
         </template>
       </el-table-column>
+      <el-table-column align="center" label="Actions" width="120">
+        <template slot-scope="{}">
+          <el-button
+            type="primary"
+            size="small"
+            icon="el-icon-edit"
+            @click="confirmEdit"
+          >
+            更新
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -72,6 +84,13 @@ export default {
       getList().then(response => {
         this.list = response.data.items
         this.listLoading = false
+      })
+    },
+    confirmEdit(row) {
+      row.originalTitle = row.title
+      this.$message({
+        message: 'The title has been edited',
+        type: 'success'
       })
     }
   }
